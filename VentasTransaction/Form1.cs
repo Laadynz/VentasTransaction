@@ -93,24 +93,33 @@ namespace VentasTransaction
                                 cmd.CommandType = CommandType.Text;
                                 cmd.Transaction = transaction;
                                 query = "INSERT INTO VentasDetalle(VentaId,ProductoId,Cantidad,Descripcion,PrecioUnitario,Importe) VALUES(@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe)";
-                                //@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe
                                 cmd.Parameters.AddWithValue("@VentaId", venta.Id);
                                 cmd.Parameters.AddWithValue("@ProductoId", concepto.ProductoId);
                                 cmd.Parameters.AddWithValue("@Cantidad", concepto.Cantidad);
                                 cmd.Parameters.AddWithValue("@Descripcion", concepto.Descripcion);
                                 cmd.Parameters.AddWithValue("@PrecioUnitario", concepto.PrecioUnitario);
                                 cmd.Parameters.AddWithValue("@Importe", concepto.Importe);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            using (SqlCommand cmd = new SqlCommand(query, con))
+                            {
+                                cmd.CommandType = CommandType.Text;
+                                cmd.Transaction = transaction;
+                                query = "Update Existencias set Existencia = Existencia-@Cantidad where ProductoId = @ProductoId";
+                                cmd.Parameters.AddWithValue("@ProductoId", concepto.ProductoId);
+                                cmd.Parameters.AddWithValue("@Cantidad", concepto.Cantidad);
+                                cmd.ExecuteNonQuery();
                             }
                         }
 
-
-
-
-
-
-
-
-
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+                            query = "Update Folios set Folio = Folio + 1 ";
+                            cmd.ExecuteNonQuery();
+                        }
 
                         transaction.Commit();
 
