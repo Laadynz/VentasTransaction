@@ -1,5 +1,7 @@
 ﻿using AccesoDatos;
 using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace VentasTransaction
@@ -17,7 +19,7 @@ namespace VentasTransaction
             Venta venta = new Venta();
             venta.CLienteId = 1;
             venta.Fecha = DateTime.Now;
-            
+
             VentaDetalle producto1 = new VentaDetalle();
             producto1.ProductoId = 1;
             producto1.Cantidad = 1;
@@ -33,7 +35,99 @@ namespace VentasTransaction
             producto2.Importe = producto2.Cantidad * producto2.PrecioUnitario;
 
             venta.Conceptos.Add(producto1);
-            venta.Conceptos.Add(producto2); 
+            venta.Conceptos.Add(producto2);
+        }
+
+        //Debemos reubicar este metodo 
+        private void GuardarVenta()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Conexion.ConnectionString))
+                {
+                    SqlTransaction transaction;
+                    con.Open();
+                    transaction = con.BeginTransaction();
+
+                    try
+                    {
+                        string query = "select top(1) Folio from Folios";
+                        int folioActual = 0;
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+
+                            if (!int.TryParse(cmd.ExecuteScalar().ToString(), out folioActual))
+                            {
+                                throw new Exception("Ocurrio un error al obtener el folio");
+                            }
+                        }
+
+                        Venta venta = new Venta();
+                        venta.CLienteId = 1;
+                        venta.Folio = folioActual + 1;
+                        venta.Fecha = DateTime.Now;
+                        query = "INSERT INTO Ventas (Folio,Fecha,ClienteId,Total) VALUES (@Folio,@Fecha,@ClienteId,@Total);select scope_identity()";
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Transaction = transaction;
+                            cmd.Parameters.AddWithValue("@Folio", venta.Folio);
+                            cmd.Parameters.AddWithValue("@Fecha", venta.Fecha);
+                            cmd.Parameters.AddWithValue("@ClienteId", venta.CLienteId);
+                            cmd.Parameters.AddWithValue("@Total", venta.Total);
+                            
+
+                            if (!int.TryParse(cmd.ExecuteScalar().ToString(), out int idVenta))
+                            {
+                                throw new Exception("Ocurrio un error al obtener el id de la venta");
+                            }
+                            venta.Id = idVenta;
+                        }
+
+                        foreach (VentaDetalle concepto in venta.Conceptos) 
+                        {
+                            using (SqlCommand cmd = new SqlCommand(query, con)) 
+                            {
+                                cmd.CommandType = CommandType.Text;
+                                cmd.Transaction = transaction;
+                                query = "INSERT INTO VentasDetalle(VentaId,ProductoId,Cantidad,Descripcion,PrecioUnitario,Importe) VALUES(@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe)";
+                                //@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe
+                                cmd.Parameters.AddWithValue("@VentaId", venta.Id);
+                                cmd.Parameters.AddWithValue("@ProductoId", concepto.ProductoId);
+                                cmd.Parameters.AddWithValue("@Cantidad", concepto.Cantidad);
+                                cmd.Parameters.AddWithValue("@Descripcion", concepto.Descripcion);
+                                cmd.Parameters.AddWithValue("@PrecioUnitario", concepto.PrecioUnitario);
+                                cmd.Parameters.AddWithValue("@Importe", concepto.Importe);
+                            }
+                        }
+
+
+
+
+
+
+
+
+
+
+                        transaction.Commit();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new Exception(ex.Message);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Ocurrio un error al guardar la venta {ex.Message}");
+            }
         }
     }
 }
