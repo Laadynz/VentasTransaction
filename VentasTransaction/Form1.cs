@@ -15,27 +15,29 @@ namespace VentasTransaction
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Conexion.ConnectionString);
-            Venta venta = new Venta();
-            venta.CLienteId = 1;
-            venta.Fecha = DateTime.Now;
+            GuardarVenta();
 
-            VentaDetalle producto1 = new VentaDetalle();
-            producto1.ProductoId = 1;
-            producto1.Cantidad = 1;
-            producto1.Descripcion = "Azucar kg";
-            producto1.PrecioUnitario = 27.00m;
-            producto1.Importe = producto1.Cantidad * producto1.PrecioUnitario;
+            //MessageBox.Show(Conexion.ConnectionString);
+            //Venta venta = new Venta();
+            //venta.CLienteId = 1;
+            //venta.Fecha = DateTime.Now;
 
-            VentaDetalle producto2 = new VentaDetalle();
-            producto2.ProductoId = 2;
-            producto2.Cantidad = 1;
-            producto2.Descripcion = "Jugo Mango";
-            producto2.PrecioUnitario = 10.00m;
-            producto2.Importe = producto2.Cantidad * producto2.PrecioUnitario;
+            //VentaDetalle producto1 = new VentaDetalle();
+            //producto1.ProductoId = 1;
+            //producto1.Cantidad = 1;
+            //producto1.Descripcion = "Azucar kg";
+            //producto1.PrecioUnitario = 27.00m;
+            //producto1.Importe = producto1.Cantidad * producto1.PrecioUnitario;
 
-            venta.Conceptos.Add(producto1);
-            venta.Conceptos.Add(producto2);
+            //VentaDetalle producto2 = new VentaDetalle();
+            //producto2.ProductoId = 2;
+            //producto2.Cantidad = 1;
+            //producto2.Descripcion = "Jugo Mango";
+            //producto2.PrecioUnitario = 10.00m;
+            //producto2.Importe = producto2.Cantidad * producto2.PrecioUnitario;
+
+            //venta.Conceptos.Add(producto1);
+            //venta.Conceptos.Add(producto2);
         }
 
         //Debemos reubicar este metodo 
@@ -68,7 +70,29 @@ namespace VentasTransaction
                         venta.CLienteId = 1;
                         venta.Folio = folioActual + 1;
                         venta.Fecha = DateTime.Now;
-                        query = "INSERT INTO Ventas (Folio,Fecha,ClienteId,Total) VALUES (@Folio,@Fecha,@ClienteId,@Total);select scope_identity()";
+
+                        VentaDetalle producto1 = new VentaDetalle();
+                        producto1.ProductoId = 1;
+                        producto1.Cantidad = 1;
+                        producto1.Descripcion = "Azucar kg";
+                        producto1.PrecioUnitario = 27.00m;
+                        producto1.Importe = producto1.Cantidad * producto1.PrecioUnitario;
+
+                        VentaDetalle producto2 = new VentaDetalle();
+                        producto2.ProductoId = 2;
+                        producto2.Cantidad = 1;
+                        producto2.Descripcion = "Jugo Mango";
+                        producto2.PrecioUnitario = 10.00m;
+                        producto2.Importe = producto2.Cantidad * producto2.PrecioUnitario;
+
+                        venta.Conceptos.Add(producto1);
+                        venta.Conceptos.Add(producto2);
+
+                        query = "INSERT INTO Ventas " +
+                            "(Folio,Fecha,ClienteId,Total) " +
+                            "VALUES " +
+                            "(@Folio,@Fecha,@ClienteId,@Total);select scope_identity()";
+
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
                             cmd.CommandType = CommandType.Text;
@@ -88,11 +112,17 @@ namespace VentasTransaction
 
                         foreach (VentaDetalle concepto in venta.Conceptos) 
                         {
+
+                            query = "INSERT INTO VentasDetalle" +
+                                    "(VentaId,ProductoId,Cantidad,Descripcion,PrecioUnitario,Importe) " +
+                                    "VALUES" +
+                                    "(@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe)";
+
                             using (SqlCommand cmd = new SqlCommand(query, con)) 
                             {
                                 cmd.CommandType = CommandType.Text;
                                 cmd.Transaction = transaction;
-                                query = "INSERT INTO VentasDetalle(VentaId,ProductoId,Cantidad,Descripcion,PrecioUnitario,Importe) VALUES(@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe)";
+
                                 cmd.Parameters.AddWithValue("@VentaId", venta.Id);
                                 cmd.Parameters.AddWithValue("@ProductoId", concepto.ProductoId);
                                 cmd.Parameters.AddWithValue("@Cantidad", concepto.Cantidad);
@@ -102,26 +132,35 @@ namespace VentasTransaction
                                 cmd.ExecuteNonQuery();
                             }
 
+
+                            query = "Update Existencias " +
+                                    "set Existencia = Existencia-@Cantidad " +
+                                    "where ProductoId = @ProductoId";
+
                             using (SqlCommand cmd = new SqlCommand(query, con))
                             {
                                 cmd.CommandType = CommandType.Text;
                                 cmd.Transaction = transaction;
-                                query = "Update Existencias set Existencia = Existencia-@Cantidad where ProductoId = @ProductoId";
+
                                 cmd.Parameters.AddWithValue("@ProductoId", concepto.ProductoId);
                                 cmd.Parameters.AddWithValue("@Cantidad", concepto.Cantidad);
                                 cmd.ExecuteNonQuery();
                             }
                         }
 
+                        query = "Update Folios set Folio = Folio + 1 ";
+
                         using (SqlCommand cmd = new SqlCommand(query, con))
                         {
                             cmd.CommandType = CommandType.Text;
                             cmd.Transaction = transaction;
-                            query = "Update Folios set Folio = Folio + 1 ";
+                            
                             cmd.ExecuteNonQuery();
                         }
 
                         transaction.Commit();
+
+                        MessageBox.Show($"Venta guardada correctamente con folio {venta.Folio}");
 
                     }
                     catch (Exception ex)
