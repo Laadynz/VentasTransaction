@@ -46,5 +46,10 @@
     <Compile Include="Venta.cs" />
     <Compile Include="VentaDetalle.cs" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ScriptDB\VentasTransactionDB.sql" />
+    <Content Include="ScriptDB\VentasTransactionDB_Seed.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
