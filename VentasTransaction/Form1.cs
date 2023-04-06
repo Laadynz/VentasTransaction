@@ -79,7 +79,7 @@ namespace VentasTransaction
                             cmd.Parameters.AddWithValue("@Fecha", venta.Fecha);
                             cmd.Parameters.AddWithValue("@ClienteId", venta.CLienteId);
                             cmd.Parameters.AddWithValue("@Total", venta.Total);
-                            
+
 
                             if (!int.TryParse(cmd.ExecuteScalar().ToString(), out int idVenta))
                             {
@@ -88,7 +88,7 @@ namespace VentasTransaction
                             venta.Id = idVenta;
                         }
 
-                        foreach (VentaDetalle concepto in venta.Conceptos) 
+                        foreach (VentaDetalle concepto in venta.Conceptos)
                         {
 
                             query = "INSERT INTO VentasDetalle" +
@@ -96,7 +96,7 @@ namespace VentasTransaction
                                     "VALUES" +
                                     "(@VentaId,@ProductoId,@Cantidad,@Descripcion,@PrecioUnitario,@Importe)";
 
-                            using (SqlCommand cmd = new SqlCommand(query, con)) 
+                            using (SqlCommand cmd = new SqlCommand(query, con))
                             {
                                 cmd.CommandType = CommandType.Text;
                                 cmd.Transaction = transaction;
@@ -132,7 +132,7 @@ namespace VentasTransaction
                         {
                             cmd.CommandType = CommandType.Text;
                             cmd.Transaction = transaction;
-                            
+
                             cmd.ExecuteNonQuery();
                         }
 
