@@ -32,5 +32,23 @@ namespace AccesoDatos
                 throw new Exception(ex.Message);
             }
         }
+        public void ActualizaFolio(SqlConnection con, SqlTransaction transaction) 
+        {
+            try
+            {
+                string query = "Update Folios set Folio = Folio + 1 ";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
