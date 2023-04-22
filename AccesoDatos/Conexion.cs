@@ -8,7 +8,7 @@ namespace AccesoDatos
 {
     public static class Conexion
     {
-
-        public static string ConnectionString { get; private set; } = "Server=localhost;Database=VentasTransactionDB;Trusted_Connection=True;";
+        public static string ConnectionString { get; private set; }
+            = "Server=localhost;Database=VentasTransactionDB;Trusted_Connection=True;";
     }
 }
