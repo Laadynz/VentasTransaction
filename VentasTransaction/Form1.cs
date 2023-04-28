@@ -1,7 +1,5 @@
 ﻿using AccesoDatos;
 using System;
-using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace VentasTransaction
@@ -56,6 +54,12 @@ namespace VentasTransaction
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void icmCliente_Click(object sender, EventArgs e)
+        {
+            frmClientes clientes = new frmClientes();
+            clientes.ShowDialog();
         }
     }
 }

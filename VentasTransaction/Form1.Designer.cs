@@ -36,6 +36,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
+            this.iconMenuItem2 = new FontAwesome.Sharp.IconMenuItem();
+            this.iconMenuItem3 = new FontAwesome.Sharp.IconMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.menutitulo.SuspendLayout();
             this.Menu.SuspendLayout();
@@ -70,10 +72,12 @@
             // menutitulo
             // 
             this.menutitulo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iconMenuItem3,
+            this.iconMenuItem2,
             this.iconMenuItem1});
             this.menutitulo.Location = new System.Drawing.Point(0, 48);
             this.menutitulo.Name = "menutitulo";
-            this.menutitulo.Size = new System.Drawing.Size(475, 28);
+            this.menutitulo.Size = new System.Drawing.Size(475, 73);
             this.menutitulo.TabIndex = 2;
             this.menutitulo.Text = "menuStrip1";
             // 
@@ -109,14 +113,42 @@
             // 
             // iconMenuItem1
             // 
-            this.iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.User;
+            this.iconMenuItem1.AutoSize = false;
+            this.iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
             this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
             this.iconMenuItem1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconMenuItem1.IconSize = 20;
+            this.iconMenuItem1.IconSize = 40;
             this.iconMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.iconMenuItem1.Name = "iconMenuItem1";
-            this.iconMenuItem1.Size = new System.Drawing.Size(79, 24);
-            this.iconMenuItem1.Text = "Usuario";
+            this.iconMenuItem1.Size = new System.Drawing.Size(122, 69);
+            this.iconMenuItem1.Text = "Ventas";
+            this.iconMenuItem1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // iconMenuItem2
+            // 
+            this.iconMenuItem2.AutoSize = false;
+            this.iconMenuItem2.IconChar = FontAwesome.Sharp.IconChar.ProductHunt;
+            this.iconMenuItem2.IconColor = System.Drawing.Color.Black;
+            this.iconMenuItem2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconMenuItem2.IconSize = 40;
+            this.iconMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.iconMenuItem2.Name = "iconMenuItem2";
+            this.iconMenuItem2.Size = new System.Drawing.Size(122, 69);
+            this.iconMenuItem2.Text = "Productos";
+            this.iconMenuItem2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // iconMenuItem3
+            // 
+            this.iconMenuItem3.AutoSize = false;
+            this.iconMenuItem3.IconChar = FontAwesome.Sharp.IconChar.User;
+            this.iconMenuItem3.IconColor = System.Drawing.Color.Black;
+            this.iconMenuItem3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconMenuItem3.IconSize = 40;
+            this.iconMenuItem3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.iconMenuItem3.Name = "iconMenuItem3";
+            this.iconMenuItem3.Size = new System.Drawing.Size(122, 69);
+            this.iconMenuItem3.Text = "Clientes";
+            this.iconMenuItem3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // Form1
             // 
@@ -150,6 +182,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.MenuStrip Menu;
         private System.Windows.Forms.Label label1;
+        private FontAwesome.Sharp.IconMenuItem iconMenuItem3;
+        private FontAwesome.Sharp.IconMenuItem iconMenuItem2;
         private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
     }
 }
