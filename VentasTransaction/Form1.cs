@@ -56,10 +56,29 @@ namespace VentasTransaction
 
         }
 
-        private void icmCliente_Click(object sender, EventArgs e)
+       
+        private void iconMenuItem4_Click(object sender, EventArgs e)
         {
             frmClientes clientes = new frmClientes();
             clientes.ShowDialog();
+        }
+
+        private void icmExistencias_Click(object sender, EventArgs e)
+        {
+            frmExistencias existencias = new frmExistencias();
+            existencias.ShowDialog();
+        }
+
+        private void icmProductos_Click(object sender, EventArgs e)
+        {
+            frmProductos productos = new frmProductos();
+            productos.ShowDialog();
+        }
+
+        private void icmVentas_Click(object sender, EventArgs e)
+        {
+            frmVentas ventas = new frmVentas();
+            ventas.ShowDialog();
         }
     }
 }

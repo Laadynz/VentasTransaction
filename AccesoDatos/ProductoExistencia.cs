@@ -5,8 +5,7 @@ namespace AccesoDatos
 {
     public class ProductoExistencia
     {
-        public void ActualizarExistencia(SqlConnection con, SqlTransaction transaction,
-            VentaDetalle concepto)
+        public void ActualizarExistencia(SqlConnection con, SqlTransaction transaction, VentaDetalle concepto)
         {
             string query = "Update Existencias " +
                                 "set Existencia = Existencia-@Cantidad" +
@@ -27,7 +26,7 @@ namespace AccesoDatos
 
         public void AgregarExistenciaEnCero(SqlConnection con, SqlTransaction transaction, int ProductoId)
         {
-            string query = "Instert Into Existencias (Existencia, ProductoId) VALUES (0, @ProductoId)";
+            string query = "Insert Into Existencias (Existencia, ProductoId) VALUES (0, @ProductoId)";
 
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
@@ -38,7 +37,19 @@ namespace AccesoDatos
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public void EliminarExistencia(SqlConnection con, SqlTransaction transaction,int productoId)
+        {
+            string query = "Delete From Existencias where ProductoId = @ProductoId";
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.CommandType = CommandType.Text;
+                cmd.Transaction = transaction;
+
+                cmd.Parameters.AddWithValue("@ProductoId", productoId);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
-
-
 }

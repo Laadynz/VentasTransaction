@@ -28,41 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Guardar = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.menutitulo = new System.Windows.Forms.MenuStrip();
+            this.icmClientes = new FontAwesome.Sharp.IconMenuItem();
+            this.icmExistencias = new FontAwesome.Sharp.IconMenuItem();
+            this.icmProductos = new FontAwesome.Sharp.IconMenuItem();
+            this.icmVentas = new FontAwesome.Sharp.IconMenuItem();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
-            this.iconMenuItem1 = new FontAwesome.Sharp.IconMenuItem();
-            this.iconMenuItem2 = new FontAwesome.Sharp.IconMenuItem();
-            this.iconMenuItem3 = new FontAwesome.Sharp.IconMenuItem();
+            this.Contenedor = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.menutitulo.SuspendLayout();
             this.Menu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Guardar
-            // 
-            this.Guardar.BackColor = System.Drawing.Color.Transparent;
-            this.Guardar.Location = new System.Drawing.Point(262, 363);
-            this.Guardar.Name = "Guardar";
-            this.Guardar.Size = new System.Drawing.Size(95, 35);
-            this.Guardar.TabIndex = 0;
-            this.Guardar.Text = "Guardar";
-            this.Guardar.UseVisualStyleBackColor = false;
-            this.Guardar.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.LightGray;
-            this.button2.Location = new System.Drawing.Point(363, 363);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 35);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Cancelar";
-            this.button2.UseVisualStyleBackColor = false;
             // 
             // fileSystemWatcher1
             // 
@@ -72,14 +51,71 @@
             // menutitulo
             // 
             this.menutitulo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iconMenuItem3,
-            this.iconMenuItem2,
-            this.iconMenuItem1});
+            this.icmClientes,
+            this.icmExistencias,
+            this.icmProductos,
+            this.icmVentas});
             this.menutitulo.Location = new System.Drawing.Point(0, 48);
             this.menutitulo.Name = "menutitulo";
-            this.menutitulo.Size = new System.Drawing.Size(475, 73);
+            this.menutitulo.Size = new System.Drawing.Size(552, 73);
             this.menutitulo.TabIndex = 2;
             this.menutitulo.Text = "menuStrip1";
+            // 
+            // icmClientes
+            // 
+            this.icmClientes.AutoSize = false;
+            this.icmClientes.IconChar = FontAwesome.Sharp.IconChar.User;
+            this.icmClientes.IconColor = System.Drawing.Color.Black;
+            this.icmClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.icmClientes.IconSize = 40;
+            this.icmClientes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.icmClientes.Name = "icmClientes";
+            this.icmClientes.Size = new System.Drawing.Size(122, 69);
+            this.icmClientes.Text = "Clientes";
+            this.icmClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.icmClientes.Click += new System.EventHandler(this.iconMenuItem4_Click);
+            // 
+            // icmExistencias
+            // 
+            this.icmExistencias.AutoSize = false;
+            this.icmExistencias.IconChar = FontAwesome.Sharp.IconChar.E;
+            this.icmExistencias.IconColor = System.Drawing.Color.Black;
+            this.icmExistencias.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.icmExistencias.IconSize = 40;
+            this.icmExistencias.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.icmExistencias.Name = "icmExistencias";
+            this.icmExistencias.Size = new System.Drawing.Size(122, 69);
+            this.icmExistencias.Text = "Existencias";
+            this.icmExistencias.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.icmExistencias.Click += new System.EventHandler(this.icmExistencias_Click);
+            // 
+            // icmProductos
+            // 
+            this.icmProductos.AutoSize = false;
+            this.icmProductos.IconChar = FontAwesome.Sharp.IconChar.ProductHunt;
+            this.icmProductos.IconColor = System.Drawing.Color.Black;
+            this.icmProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.icmProductos.IconSize = 40;
+            this.icmProductos.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.icmProductos.Name = "icmProductos";
+            this.icmProductos.Size = new System.Drawing.Size(122, 69);
+            this.icmProductos.Text = "Productos";
+            this.icmProductos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.icmProductos.Click += new System.EventHandler(this.icmProductos_Click);
+            // 
+            // icmVentas
+            // 
+            this.icmVentas.AutoSize = false;
+            this.icmVentas.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
+            this.icmVentas.IconColor = System.Drawing.Color.Black;
+            this.icmVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.icmVentas.IconSize = 40;
+            this.icmVentas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.icmVentas.Name = "icmVentas";
+            this.icmVentas.Size = new System.Drawing.Size(122, 69);
+            this.icmVentas.Text = "Ventas";
+            this.icmVentas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.icmVentas.Click += new System.EventHandler(this.icmVentas_Click);
             // 
             // Menu
             // 
@@ -90,7 +126,7 @@
             this.Menu.Location = new System.Drawing.Point(0, 0);
             this.Menu.Name = "Menu";
             this.Menu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Menu.Size = new System.Drawing.Size(475, 48);
+            this.Menu.Size = new System.Drawing.Size(552, 48);
             this.Menu.TabIndex = 3;
             this.Menu.Text = "menuStrip2";
             // 
@@ -111,53 +147,21 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Punto de Venta";
             // 
-            // iconMenuItem1
+            // Contenedor
             // 
-            this.iconMenuItem1.AutoSize = false;
-            this.iconMenuItem1.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
-            this.iconMenuItem1.IconColor = System.Drawing.Color.Black;
-            this.iconMenuItem1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconMenuItem1.IconSize = 40;
-            this.iconMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.iconMenuItem1.Name = "iconMenuItem1";
-            this.iconMenuItem1.Size = new System.Drawing.Size(122, 69);
-            this.iconMenuItem1.Text = "Ventas";
-            this.iconMenuItem1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // iconMenuItem2
-            // 
-            this.iconMenuItem2.AutoSize = false;
-            this.iconMenuItem2.IconChar = FontAwesome.Sharp.IconChar.ProductHunt;
-            this.iconMenuItem2.IconColor = System.Drawing.Color.Black;
-            this.iconMenuItem2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconMenuItem2.IconSize = 40;
-            this.iconMenuItem2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.iconMenuItem2.Name = "iconMenuItem2";
-            this.iconMenuItem2.Size = new System.Drawing.Size(122, 69);
-            this.iconMenuItem2.Text = "Productos";
-            this.iconMenuItem2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // iconMenuItem3
-            // 
-            this.iconMenuItem3.AutoSize = false;
-            this.iconMenuItem3.IconChar = FontAwesome.Sharp.IconChar.User;
-            this.iconMenuItem3.IconColor = System.Drawing.Color.Black;
-            this.iconMenuItem3.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconMenuItem3.IconSize = 40;
-            this.iconMenuItem3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.iconMenuItem3.Name = "iconMenuItem3";
-            this.iconMenuItem3.Size = new System.Drawing.Size(122, 69);
-            this.iconMenuItem3.Text = "Clientes";
-            this.iconMenuItem3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Contenedor.Location = new System.Drawing.Point(0, 121);
+            this.Contenedor.Name = "Contenedor";
+            this.Contenedor.Size = new System.Drawing.Size(552, 292);
+            this.Contenedor.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 424);
+            this.ClientSize = new System.Drawing.Size(552, 413);
+            this.Controls.Add(this.Contenedor);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.Guardar);
             this.Controls.Add(this.menutitulo);
             this.Controls.Add(this.Menu);
             this.MainMenuStrip = this.menutitulo;
@@ -174,17 +178,16 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button Guardar;
-        private System.Windows.Forms.Button button2;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private System.Windows.Forms.MenuStrip menutitulo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.MenuStrip Menu;
         private System.Windows.Forms.Label label1;
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem3;
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem2;
-        private FontAwesome.Sharp.IconMenuItem iconMenuItem1;
+        private FontAwesome.Sharp.IconMenuItem icmExistencias;
+        private FontAwesome.Sharp.IconMenuItem icmProductos;
+        private FontAwesome.Sharp.IconMenuItem icmVentas;
+        private FontAwesome.Sharp.IconMenuItem icmClientes;
+        private System.Windows.Forms.Panel Contenedor;
     }
 }
 
